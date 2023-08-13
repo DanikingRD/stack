@@ -36,6 +36,8 @@ public:
 
         // 5) Incrementar el length tracker
         this->len++;
+
+        // TODO: What would happen if we push() a nullptr?
     }
 
     void pop()
@@ -48,6 +50,9 @@ public:
         this->top = nextInStack;
         // Disminuye el length tracker
         this->len--;
+
+        // TODO: What would happen if we pop() an empty stack?
+        // TODO: It could be useful to return the value of the popped node.
     }
 
     /// @brief Regresa el valor más alto en la pila.
@@ -101,7 +106,7 @@ public:
     }
 };
 
-int main(int argc, char const *argv[])
+void testStack()
 {
     Stack *stack = new Stack();
 
@@ -123,5 +128,10 @@ int main(int argc, char const *argv[])
     cout << "Contiene el valor 6 ? " << to_string(stack->contains(6)) << endl;
 
     delete stack;
+}
+int main(int argc, char const *argv[])
+{
+    testStack();
+    // TODO: Implement the whole program here.
     return 0;
 }
