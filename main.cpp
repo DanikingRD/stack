@@ -42,6 +42,11 @@ public:
 
     void pop()
     {
+        if (len == 0)
+            // What would happen if we pop() an empty stack?
+            // segmentation fault
+            return;
+
         // 1) Obtener el siguiente nodo en la pila.
         Node *nextInStack = this->top->next;
         // 2) Eliminar el nodo actualmente en el TOP
@@ -51,7 +56,6 @@ public:
         // Disminuye el length tracker
         this->len--;
 
-        // TODO: What would happen if we pop() an empty stack?
         // TODO: It could be useful to return the value of the popped node.
     }
 
@@ -63,7 +67,7 @@ public:
 
     bool contains(int value)
     {
-        // TODO: PUEDE MEJORAR UTILIZANDO UN BINARY SEARCH.
+        // TODO: replace this with a binary search.
         Node *node = top;
         while (node != nullptr)
         {
@@ -88,6 +92,14 @@ public:
         return this->len == 0;
     }
 
+    void clear()
+    {
+        while (!isEmpty())
+        {
+            pop();
+        }
+    }
+
     string toString()
     {
         // 1) Title
@@ -110,15 +122,18 @@ void testStack()
 {
     Stack *stack = new Stack();
 
+    // 1) Test push
     for (int val = 0; val < 10; val++)
     {
         stack->push(val);
     }
 
+    // 2) Test contains
     cout << "Contiene el valor 6 ? " << to_string(stack->contains(6)) << endl;
 
     cout << stack->toString() << endl;
 
+    // 3) Test pop
     for (int i = 0; i < 5; i++)
 
     {
@@ -127,6 +142,10 @@ void testStack()
     cout << stack->toString() << endl;
     cout << "Contiene el valor 6 ? " << to_string(stack->contains(6)) << endl;
 
+    // 4) Test clear
+    stack->clear();
+    cout << "Se ha limpiado la pila" << endl;
+    cout << stack->toString() << endl;
     delete stack;
 }
 int main(int argc, char const *argv[])
