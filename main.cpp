@@ -294,8 +294,8 @@ void run()
              << "   3) - Para obtener el valor más alto de la pila (peek).\n"
              << "   4) - Para verificar si un valor se encuentra en la pila (contains).\n"
              << "   5) - Para mostrar todos los valores de la pila.\n"
-             << "   6) - Para limpiar la pila.\n"
-             << "   7) - Para mostrar el tamaño de la pila.\n"
+             << "   6) - Para limpiar la pila (clear).\n"
+             << "   7) - Para mostrar el tamaño de la pila. (size)\n"
              << "Ingrese su opcion: ";
         readInt(option);
         cout << endl;
