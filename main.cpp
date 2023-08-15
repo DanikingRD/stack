@@ -92,7 +92,7 @@ public:
     void pop()
     {
         if (len == 0)
-            // What would happen if we pop() an empty stack?
+            // Que pasaría si hacemos pop en un stack vacío?
             // segmentation fault
             return;
 
@@ -199,6 +199,9 @@ void readInt(int &value)
     }
 }
 
+/*
+ * Pide un valor al usuario para insertar en el `Stack`.
+ */
 void makePush(Stack *stack)
 {
     cout << "Ingrese el valor a insertar: ";
@@ -209,17 +212,28 @@ void makePush(Stack *stack)
     cout << stack->toString() << endl;
 }
 
+/*
+ * Ejecuta `Pop` en el stack.
+ * Luego procede a imprimir los datos disponibles.
+ */
 void makePop(Stack *stack)
 {
     stack->pop();
     cout << stack->toString() << endl;
 }
 
+/*
+ * Muestra el valor que se encuentra en el tope de la pila.
+ */
 void showPeek(Stack *stack)
 {
     cout << " * El valor más alto de la pila es: " << stack->peek() << endl;
 }
 
+/*
+ * Pide un valor al usuario para buscar en el `Stack`.
+ * Luego muestra un mensaje indicando si el valor se encuentra o no almacenado.
+ */
 void checkIfContains(Stack *stack)
 {
     int value;
@@ -235,28 +249,43 @@ void checkIfContains(Stack *stack)
     }
 }
 
+/*
+ * Muestra los datos disponibles en el `Stack`.
+ */
 void showStack(Stack *stack)
 {
     cout << stack->toString() << endl;
 }
 
+/*
+ * Limpia el `Stack`.
+ * Luego muestra un mensaje indicando que la pila ha sido limpiada.
+ */
 void makeClear(Stack *stack)
 {
     stack->clear();
     cout << "* La pila ha sido limpiada.\n";
 }
 
+/*
+ * Muestra la cantidad de elementos en el `Stack`.
+ */
 void showSize(Stack *stack)
 {
     cout << " * La pila tiene " << stack->size() << " elementos.\n";
 }
 
+/*
+ * Loop principal del programa.
+ * Creamos un `Stack` y luego ejecutamos las acciones que el usuario solicite.
+ * El loop se repite hasta que el usuario ingrese la opción 0.
+ */
 void run()
 {
+    // Instanciamos un nuevo Stack
     Stack *stack = new Stack();
     while (true)
     {
-
         int option;
         cout << "Presione: \n"
              << "   0) - Para salir del programa\n"
@@ -303,7 +332,7 @@ void run()
             break;
         }
     }
-    delete stack;
+    delete stack; // Liberamos la memoria del stack
 }
 
 int main(int argc, char const *argv[])
