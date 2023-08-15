@@ -15,25 +15,60 @@ using namespace std;
  * FECHA: 05/08/2023 <== Fecha de realización
  */
 
+/*
+ * Representa un nodo en la pila.
+ *
+ * Un nodo se puede visualizar como una caja que contiene
+ * un valor y una referencia al siguiente nodo en la pila.
+ *
+ * +-------+-------+       +-------+-------+
+ * | value | next  | ----> | value | next  | ----> ...
+ * +-------+-------+       +-------+-------+
+ */
 struct Node
 {
+    /// @brief Referencia al siguiente nodo. Puede ser `nullptr`
     Node *next;
+    /// @brief Valor almacenado en el nodo.
     int value;
 };
 
+/*
+ * Representa un `Stack` o pila de datos.
+ *
+ * El stack almacena los datos en orden LIFO (Last In First Out)
+ * haciendo uso de nodos que referencian al siguiente formando una cadena.
+ *
+ *  - Representación de una pila con 3 elementos:
+ *      +-------+
+ *      |   3   | valor de next: 2
+ *      +-------+
+ *      |   2   | valor de next: 1
+ *      +-------+
+ *      |   1   | valor de next: null
+ *      +-------+
+ *      |  null |
+ *      +-------+
+ */
 struct Stack
 {
 private:
+    /// @brief  Referencia al nodo en el tope de la pila.
     Node *top;
+    /// @brief  Cantidad de elementos en la pila.
     uint len;
 
 public:
+    // El constructor crea una pila vacia.
     Stack()
     {
         top = nullptr;
         len = 0;
     }
 
+    /*
+     * El método `push` inserta un nuevo elemento en el tope (TOP) de la pila.
+     */
     void push(int value)
     {
         // 1) Crear un nuevo nodo
@@ -46,11 +81,14 @@ public:
         newNode->next = this->top;
         // 4) Actualizar el nodo en el TOP.
         this->top = newNode;
-
         // 5) Incrementar su tamaño
         this->len++;
     }
 
+    /*
+     * El método `pop` elimina el elemento en el tope (TOP) de la pila.
+     * Si la pila está vacia, no hace nada.
+     */
     void pop()
     {
         if (len == 0)
@@ -68,12 +106,22 @@ public:
         this->len--;
     }
 
-    /// @brief Regresa el valor más alto en la pila.
+    /*
+     * El método `peek` retorna el valor del elemento en el tope (TOP) de la pila.
+     * O retorna -1 si la pila está vacia.
+     */
     int peek()
     {
+        if (isEmpty())
+        {
+            return -1;
+        }
         return this->top->value;
     }
 
+    /*
+     * `contains` retorna `true` si la pila contiene el valor especificado.
+     */
     bool contains(int value)
     {
         Node *node = top;
@@ -89,16 +137,25 @@ public:
         return false;
     }
 
+    /*
+     * Retorna la cantidad de elementos en la pila.
+     */
     uint size() const
     {
         return this->len;
     }
 
+    /*
+     * Retorna `true` si la pila está vacia.
+     */
     bool isEmpty() const
     {
         return this->len == 0;
     }
 
+    /*
+     * Elimina todos los elementos de la pila, haciendo que esta quede vacia.
+     */
     void clear()
     {
         while (!isEmpty())
@@ -106,107 +163,152 @@ public:
             pop();
         }
     }
+    /*
+     * Retorna una representación de la pila en forma de cadena (string).
+     */
     string toString()
     {
-        // 1) Title
-        string result = "Stack contents (top to bottom):\n";
-        // 2) Grab the next node in the stack
+        if (isEmpty())
+        {
+            return " * La pila está vacia.\n";
+        }
+
         Node *node = top;
+        string stackStr = "[Stack]:\n";
+
         while (node != nullptr)
         {
-            // Append each value
-            result += to_string(node->value) + "\n";
-            node = node->next; // Go to the next node
+            stackStr += "  " + to_string(node->value) + "\n";
+            node = node->next;
         }
-        // 4) Print the stack size
-        result += "\nStack size: " + to_string(size()) + "\n";
-        return result;
+        return stackStr;
     }
 };
 
-void testStack()
+/*
+ * Lee un valor entero. Si el valor ingresado no es un entero,
+ * se solicita al usuario que ingrese un valor válido.
+ */
+void readInt(int &value)
 {
-    Stack *stack = new Stack();
-
-    // 1) Test push
-    for (int val = 0; val < 10; val++)
+    while (!(cin >> value))
     {
-        stack->push(val);
+        cout << "Ingrese un valor válido: ";
+        cin.clear();
+        cin.ignore(123, '\n');
     }
-    // c++ 0, 1
-    // 2) Test contains
-    cout << "Contiene el valor 6 ? " << to_string(stack->contains(6)) << endl;
-
-    cout << stack->toString() << endl;
-
-    // 3) Test pop
-    for (int i = 0; i < 5; i++)
-    {
-        stack->pop();
-    }
-    cout << stack->toString() << endl;
-    cout << "Contiene el valor 6 ? " << to_string(stack->contains(6)) << endl;
-
-    // 4) Test clear
-    stack->clear();
-    cout << "Se ha limpiado la pila" << endl;
-    cout << stack->toString() << endl;
-    delete stack;
 }
 
 void makePush(Stack *stack)
 {
-    cout << "";
+    cout << "Ingrese el valor a insertar: ";
     int value;
-    cin >> value;
+    readInt(value);
     stack->push(value);
-    cout << "";
+    cout << " * El valor " << value << " ha sido insertado en la pila\n";
+    cout << stack->toString() << endl;
 }
 
 void makePop(Stack *stack)
 {
-    cout << "";
     stack->pop();
-    cout << "";
+    cout << stack->toString() << endl;
 }
+
+void showPeek(Stack *stack)
+{
+    cout << " * El valor más alto de la pila es: " << stack->peek() << endl;
+}
+
+void checkIfContains(Stack *stack)
+{
+    int value;
+    cout << "Ingrese el valor a buscar: ";
+    readInt(value);
+    if (stack->contains(value))
+    {
+        cout << " * El valor " << value << " si se encuentra en la pila\n";
+    }
+    else
+    {
+        cout << " * El valor " << value << " no se encuentra en la pila\n";
+    }
+}
+
+void showStack(Stack *stack)
+{
+    cout << stack->toString() << endl;
+}
+
+void makeClear(Stack *stack)
+{
+    stack->clear();
+    cout << "* La pila ha sido limpiada.\n";
+}
+
+void showSize(Stack *stack)
+{
+    cout << " * La pila tiene " << stack->size() << " elementos.\n";
+}
+
 void run()
 {
+    Stack *stack = new Stack();
     while (true)
     {
-        Stack *stack = new Stack();
-        int option;
-        // Draw an intuitive menu
-        cout << "Available options:\n"
-             << "  1) Push\n"
-             << "  2) Pop\n"
-             << "  3) Peek\n"
-             << "  4) Contains\n"
-             << "  5) Size\n"
-             << "  6) Clear\n"
-             << "  7) Exit\n"
-             << "Enter your choice: ";
-        cin >> option;
 
+        int option;
+        cout << "Presione: \n"
+             << "   0) - Para salir del programa\n"
+             << "   1) - Para ingresar un valor a la pila (push).\n"
+             << "   2) - Para eliminar un valor de la pila (pop).\n"
+             << "   3) - Para obtener el valor más alto de la pila (peek).\n"
+             << "   4) - Para verificar si un valor se encuentra en la pila (contains).\n"
+             << "   5) - Para mostrar todos los valores de la pila.\n"
+             << "   6) - Para limpiar la pila.\n"
+             << "   7) - Para mostrar el tamaño de la pila.\n"
+             << "Ingrese su opcion: ";
+        readInt(option);
         cout << endl;
 
         switch (option)
         {
         case 0:
+            cout << "Saliendo del programa...\n";
+            exit(0);
+            break;
+        case 1:
             makePush(stack);
             break;
-
-        case 1:
+        case 2:
             makePop(stack);
             break;
+        case 3:
+            showPeek(stack);
+            break;
+        case 4:
+            checkIfContains(stack);
+            break;
+        case 5:
+            showStack(stack);
+            break;
+        case 6:
+            makeClear(stack);
+            break;
+        case 7:
+            showSize(stack);
+            break;
+        default:
+            cout << "La opcion " << option << " no existe.\n";
+            break;
         }
-        delete stack;
     }
+    delete stack;
 }
 
 int main(int argc, char const *argv[])
 {
-    // Nodos
-    testStack();
+    cout << "Bienvenido al programa de pilas\n";
     run();
     return 0;
 }
