@@ -2,6 +2,19 @@
 
 using namespace std;
 
+/*
+ * ENUNCIADO: Stack
+ * INTEGRANTES: 1113684 - Clay Manuel Gomera Arias
+ *              1114116 - Jean Carlos Araujo Molina
+ *              1116906 - Gabriel Mejía Acosta
+ *              1114441 - Rafael Eduardo Peralta Pimentel
+ *              1114814 - Hadelin Maria García Cedano
+ *              1114950 - Elian Gabriel Villegas Báez
+ *              1116614 - Luis Daniel de la Cruz García
+ *              1116623 - Aquilenyi Suero de los Santos
+ * FECHA: 05/08/2023 <== Fecha de realización
+ */
+
 struct Node
 {
     Node *next;
@@ -34,10 +47,8 @@ public:
         // 4) Actualizar el nodo en el TOP.
         this->top = newNode;
 
-        // 5) Incrementar el length tracker
+        // 5) Incrementar su tamaño
         this->len++;
-
-        // TODO: What would happen if we push() a nullptr?
     }
 
     void pop()
@@ -48,15 +59,13 @@ public:
             return;
 
         // 1) Obtener el siguiente nodo en la pila.
-        Node *nextInStack = this->top->next;
+        Node *nextInStack = this->top->next; // Tiene referencia al siguiente elemento del stack
         // 2) Eliminar el nodo actualmente en el TOP
-        delete this->top;
+        delete this->top; // borra la memoria de ese nodo
         // 3) Actualizar el nodo en el TOP.
         this->top = nextInStack;
-        // Disminuye el length tracker
+        // Disminuir su tamaño
         this->len--;
-
-        // TODO: It could be useful to return the value of the popped node.
     }
 
     /// @brief Regresa el valor más alto en la pila.
@@ -67,11 +76,9 @@ public:
 
     bool contains(int value)
     {
-        // TODO: replace this with a binary search.
         Node *node = top;
         while (node != nullptr)
         {
-            // linear search
             int nodeValue = node->value;
             if (nodeValue == value)
             {
@@ -99,7 +106,6 @@ public:
             pop();
         }
     }
-
     string toString()
     {
         // 1) Title
@@ -109,7 +115,7 @@ public:
         while (node != nullptr)
         {
             // Append each value
-            result += to_string(node->value) + " ";
+            result += to_string(node->value) + "\n";
             node = node->next; // Go to the next node
         }
         // 4) Print the stack size
@@ -127,7 +133,7 @@ void testStack()
     {
         stack->push(val);
     }
-
+    // c++ 0, 1
     // 2) Test contains
     cout << "Contiene el valor 6 ? " << to_string(stack->contains(6)) << endl;
 
@@ -135,7 +141,6 @@ void testStack()
 
     // 3) Test pop
     for (int i = 0; i < 5; i++)
-
     {
         stack->pop();
     }
@@ -148,9 +153,60 @@ void testStack()
     cout << stack->toString() << endl;
     delete stack;
 }
+
+void makePush(Stack *stack)
+{
+    cout << "";
+    int value;
+    cin >> value;
+    stack->push(value);
+    cout << "";
+}
+
+void makePop(Stack *stack)
+{
+    cout << "";
+    stack->pop();
+    cout << "";
+}
+void run()
+{
+    while (true)
+    {
+        Stack *stack = new Stack();
+        int option;
+        // Draw an intuitive menu
+        cout << "Available options:\n"
+             << "  1) Push\n"
+             << "  2) Pop\n"
+             << "  3) Peek\n"
+             << "  4) Contains\n"
+             << "  5) Size\n"
+             << "  6) Clear\n"
+             << "  7) Exit\n"
+             << "Enter your choice: ";
+        cin >> option;
+
+        cout << endl;
+
+        switch (option)
+        {
+        case 0:
+            makePush(stack);
+            break;
+
+        case 1:
+            makePop(stack);
+            break;
+        }
+        delete stack;
+    }
+}
+
 int main(int argc, char const *argv[])
 {
+    // Nodos
     testStack();
-    // TODO: Implement the whole program here.
+    run();
     return 0;
 }
