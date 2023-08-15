@@ -288,7 +288,7 @@ void run()
     {
         int option;
         cout << "Presione: \n"
-             << "   0) - Para salir del programa\n"
+             << "   0) - Para salir del programa.\n"
              << "   1) - Para ingresar un valor a la pila (push).\n"
              << "   2) - Para eliminar un valor de la pila (pop).\n"
              << "   3) - Para obtener el valor más alto de la pila (peek).\n"
