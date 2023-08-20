@@ -170,11 +170,11 @@ public:
     {
         if (isEmpty())
         {
-            return " * La pila está vacia.\n";
+            return " * La pila está vacía.\n";
         }
 
         Node *node = top;
-        string stackStr = "[Stack]:\n";
+        string stackStr = "[Stack]\n";
 
         while (node != nullptr)
         {
@@ -227,7 +227,13 @@ void makePop(Stack *stack)
  */
 void showPeek(Stack *stack)
 {
-    cout << " * El valor más alto de la pila es: " << stack->peek() << endl;
+    int x = stack->peek();
+    if (x == -1)
+    {
+        cout << " * La pila está vacia.\n";
+        return;
+    }
+    cout << " * El valor más alto de la pila es: " << x << endl;
 }
 
 /*
