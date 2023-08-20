@@ -302,7 +302,7 @@ void run()
              << "   5) - Para mostrar todos los valores de la pila.\n"
              << "   6) - Para limpiar la pila (clear).\n"
              << "   7) - Para mostrar el tamaño de la pila. (size)\n"
-             << "Ingrese su opcion: ";
+             << "Ingrese su opción: ";
         readInt(option);
         cout << endl;
 
