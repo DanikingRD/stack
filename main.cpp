@@ -56,14 +56,14 @@ private:
     /// @brief  Referencia al nodo en el tope de la pila.
     Node *top;
     /// @brief  Cantidad de elementos en la pila.
-    uint len;
+    unsigned int length;
 
 public:
     // El constructor crea una pila vacia.
     Stack()
     {
         top = nullptr;
-        len = 0;
+        length = 0;
     }
 
     /*
@@ -82,7 +82,7 @@ public:
         // 4) Actualizar el nodo en el TOP.
         this->top = newNode;
         // 5) Incrementar su tamaño
-        this->len++;
+        this->length++;
     }
 
     /*
@@ -91,9 +91,9 @@ public:
      */
     void pop()
     {
-        if (len == 0)
+        if (length == 0)
             // Que pasaría si hacemos pop en un stack vacío?
-            // segmentation fault
+            // segmentation fault >_<
             return;
 
         // 1) Obtener el siguiente nodo en la pila.
@@ -103,7 +103,7 @@ public:
         // 3) Actualizar el nodo en el TOP.
         this->top = nextInStack;
         // Disminuir su tamaño
-        this->len--;
+        this->length--;
     }
 
     /*
@@ -124,15 +124,15 @@ public:
      */
     bool contains(int value)
     {
-        Node *node = top;
-        while (node != nullptr)
+        Node *index = top;
+        while (index != nullptr)
         {
-            int nodeValue = node->value;
+            int nodeValue = index->value;
             if (nodeValue == value)
             {
                 return true;
             }
-            node = node->next;
+            index = index->next;
         }
         return false;
     }
@@ -140,9 +140,9 @@ public:
     /*
      * Retorna la cantidad de elementos en la pila.
      */
-    uint size() const
+    unsigned int size() const
     {
-        return this->len;
+        return this->length;
     }
 
     /*
@@ -150,7 +150,7 @@ public:
      */
     bool isEmpty() const
     {
-        return this->len == 0;
+        return this->length == 0;
     }
 
     /*
